@@ -47,9 +47,9 @@ const ImageCarousel = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const [dataWithPlaceholders, setDataWithPlaceholders] = useState(data);
 
-  useEffect(() => {
-    setDataWithPlaceholders([{id: -1}, ...data, {id: data.length}]);
-  }, [data]);
+  // useEffect(() => {
+  //   setDataWithPlaceholders([{id: -1}, ...data, {id: data.length}]);
+  // }, [data]);
 
   return (
     <View style={styles.container}>
@@ -62,9 +62,9 @@ const ImageCarousel = () => {
           }
 
           const inputRange = [
-            (index - 2) * ITEM_LENGTH,
             (index - 1) * ITEM_LENGTH,
             index * ITEM_LENGTH,
+            (index + 1) * ITEM_LENGTH,
           ];
 
           const translateY = scrollX.interpolate({
@@ -76,11 +76,17 @@ const ImageCarousel = () => {
             ],
             extrapolate: 'clamp',
           });
+          const opacity = scrollX.interpolate({
+            inputRange,
+            outputRange: [0.7, 1, 0.7],
+            // extrapolate: 'clamp',
+          });
 
           return (
             <View style={{width: ITEM_LENGTH}}>
               <Animated.View
                 style={[
+                  opacity,
                   {
                     transform: [{translateY}],
                   },
@@ -100,7 +106,7 @@ const ImageCarousel = () => {
         renderToHardwareTextureAndroid
         contentContainerStyle={styles.flatListContent}
         snapToInterval={ITEM_LENGTH}
-        snapToAlignment="start"
+        snapToAlignment="center"
         onScroll={Animated.event(
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
@@ -120,6 +126,8 @@ const styles = StyleSheet.create({
   flatListContent: {
     height: 300,
     alignItems: 'center',
+    // backgroundColor: 'red',
+    // flexGrow: 1,
   },
   itemContent: {
     marginHorizontal: SPACING * 3,

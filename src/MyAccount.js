@@ -24,7 +24,6 @@ import NewConntion from './NewConntion';
 import {Text, View, StyleSheet, ScrollView, Image} from 'react-native';
 import Carousl from './Header/Carousl';
 import Banner1 from './Header/Banner1';
-import Index from './Header/Index';
 import ImageCarousel from './Header/ImageCarousel';
 
 const MyAccount = () => {
@@ -36,11 +35,9 @@ const MyAccount = () => {
           height: '100%',
           backgroundColor: '#F3EFE0',
           borderRadius: 20,
-          position: 'relative',
         }}>
-        {/* <Index /> */}
-        <ImageCarousel />
-        {/* <Banner1 srcimg={require('./assets/images/banner1.png')} name="big" /> */}
+        {/* <ImageCarousel /> */}
+        <Banner1 srcimg={require('./assets/images/banner1.png')} name="big" />
         {/* <Banner srcimg={require('./assets/images/banner1.png')} name="big" /> */}
         <IconContainer name="circle" data={circleIconData} />
         <Banner srcimg={require('./assets/images/layer2.1.png')} name="small" />
